@@ -5,6 +5,7 @@
 
 import org.springframework.cloud.Cloud
 import org.springframework.cloud.CloudFactory
+import javax.servlet.http.HttpServletRequest
 
 beans {
 	cloudFactory(CloudFactory)
@@ -22,10 +23,11 @@ class WebApplication implements CommandLineRunner {
 	Cloud cloud
 
 	@RequestMapping("/")
-	String home(Map<String,Object> model) {
+	String home(Map<String,Object> model, HttpServletRequest request) {
 		requestsServed++
 		model['instance'] = cloud.applicationInstanceInfo.properties['instance_index']
 		model['port'] = cloud.applicationInstanceInfo.properties['port']
+		model['ipAddress'] = request.localAddr
 		model['applicationName'] = cloud.applicationInstanceInfo.properties['application_name']
 		model['memory'] = cloud.applicationInstanceInfo.properties['limits']['mem']
 		model['disk'] = cloud.applicationInstanceInfo.properties['limits']['disk']
