@@ -1,0 +1,29 @@
+= cf-scale-boot
+
+Demonstrate application instance scaling on Cloud Foundry with this simple (one Groovy file, one HTML file) Spring Boot CLI application!
+
+== Running Locally
+
+* Install the http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-installing-the-cli[latest Spring Boot CLI].
+* Run:
+
+----
+$ spring run app.groovy
+----
+
+== Running on Cloud Foundry
+
+The application requires the latest version of the Java Buildpack, so we'll use that from GitHub.
+
+----
+$ spring grab app.groovy
+$ cf push -m 256M -b https://github.com/cloudfoundry/java-buildpack cf-scale-boot
+----
+
+== SCALE!
+
+----
+$ cf scale cf-scale-boot -i 1000
+----
+
+(_or some reasonable number for your CF cloud!_)
