@@ -17,7 +17,7 @@ The application requires the latest version of the Java Buildpack, so we'll use 
 
 ----
 $ spring grab app.groovy
-$ cf push -m 256M -b https://github.com/cloudfoundry/java-buildpack cf-scale-boot
+$ cf push -m 512M -b https://github.com/cloudfoundry/java-buildpack cf-scale-boot
 ----
 
 == SCALE!
@@ -27,3 +27,7 @@ $ cf scale cf-scale-boot -i 1000
 ----
 
 (_or some reasonable number for your CF cloud!_)
+
+== What you get:
+
+image::docs/screenshot.png[]
