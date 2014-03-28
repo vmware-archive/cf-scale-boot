@@ -6,6 +6,7 @@
 import org.springframework.cloud.Cloud
 import org.springframework.cloud.CloudFactory
 import javax.servlet.http.HttpServletRequest
+import groovy.util.logging.Commons
 
 beans {
 	cloudFactory(CloudFactory)
@@ -15,6 +16,7 @@ beans {
 
 @Controller
 @Configuration
+@Commons
 class WebApplication implements CommandLineRunner {
 
 	int requestsServed
@@ -34,6 +36,12 @@ class WebApplication implements CommandLineRunner {
 		model['requestsServed'] = requestsServed
 		return "index"
 	}
+
+	@RequestMapping("/killSwitch")
+    void die() {
+        log.fatal("KILL SWITCH ACTIVATED!")
+        System.exit(1)
+    }
 
 	@Override
     void run(String... args) {
