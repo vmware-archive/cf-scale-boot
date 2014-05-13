@@ -16,7 +16,6 @@ $ spring run app.groovy
 The application requires the latest version of the Java Buildpack, so we'll use that from GitHub.
 
 ----
-$ spring grab app.groovy
 $ cf push -m 512M -b https://github.com/cloudfoundry/java-buildpack cf-scale-boot
 ----
 
