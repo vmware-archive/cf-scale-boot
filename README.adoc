@@ -14,10 +14,10 @@ $ spring run app.groovy
 == Running on Cloud Foundry
 
 ----
-$ cf push -m 512M -t 90 cf-scale-boot
+$ cf push -m 512M -t 90 cf-scale-boot --random-route
 ----
 
-We add the `-t 90` to give the app a little additional time to start up.
+We add the `-t 90` to give the app a little additional time to start up. The addition of `--random-route` ensures you won't collide with any other users of the app on public CF providers!
 
 == SCALE!
 
