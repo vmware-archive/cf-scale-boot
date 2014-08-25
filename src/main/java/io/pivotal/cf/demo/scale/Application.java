@@ -32,7 +32,7 @@ public class Application {
     @RequestMapping("/")
     String home(Map<String, Object> model, HttpServletRequest request) {
         requestsServed++;
-        model.put("dyno", cloud().getApplicationInstanceInfo().getProperties().get("dyno"));
+        model.put("dyno", System.getenv().get("DYNO"));
         model.put("port", cloud().getApplicationInstanceInfo().getProperties().get("port"));
         model.put("ipAddress", request.getLocalAddr());
         model.put("requestsServed", requestsServed);
