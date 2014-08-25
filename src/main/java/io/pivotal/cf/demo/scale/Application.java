@@ -32,10 +32,10 @@ public class Application {
     @RequestMapping("/")
     String home(Map<String, Object> model, HttpServletRequest request) {
         requestsServed++;
-        model.put("instance", cloud().getApplicationInstanceInfo().getProperties().get("instance_index"));
+        model.put("dyno", cloud().getApplicationInstanceInfo().getProperties().get("dyno"));
         model.put("port", cloud().getApplicationInstanceInfo().getProperties().get("port"));
         model.put("ipAddress", request.getLocalAddr());
-        model.put("applicationName", cloud().getApplicationInstanceInfo().getProperties().get("application_name"));
+//        model.put("applicationName", cloud().getApplicationInstanceInfo().getProperties().get("application_name"));
 
 //        @SuppressWarnings("unchecked")
 //        Map<String, Object> limits = (Map<String, Object>) cloud().getApplicationInstanceInfo().getProperties().get("limits");
