@@ -18,7 +18,7 @@ import java.util.Map;
 @Controller
 @Configuration
 @EnableAutoConfiguration
-class Application {
+public class Application {
 
     Log log = LogFactory.getLog(Application.class);
 
