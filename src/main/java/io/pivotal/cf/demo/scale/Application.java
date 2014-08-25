@@ -37,11 +37,11 @@ public class Application {
         model.put("ipAddress", request.getLocalAddr());
         model.put("applicationName", cloud().getApplicationInstanceInfo().getProperties().get("application_name"));
 
-        @SuppressWarnings("unchecked")
-        Map<String, Object> limits = (Map<String, Object>) cloud().getApplicationInstanceInfo().getProperties().get("limits");
+//        @SuppressWarnings("unchecked")
+//        Map<String, Object> limits = (Map<String, Object>) cloud().getApplicationInstanceInfo().getProperties().get("limits");
 
-        model.put("memory", limits.get("mem"));
-        model.put("disk", limits.get("disk"));
+//        model.put("memory", limits.get("mem"));
+//        model.put("disk", limits.get("disk"));
         model.put("requestsServed", requestsServed);
         return "index";
     }
