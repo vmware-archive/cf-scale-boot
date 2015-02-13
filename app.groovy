@@ -1,7 +1,7 @@
-@GrabResolver(name='Spring Snapshot', root='http://repo.spring.io/snapshot')
-@Grab('org.springframework.cloud:spring-service-connector:0.9.6.BUILD-SNAPSHOT')
-@Grab('org.springframework.cloud:cloudfoundry-connector:0.9.6.BUILD-SNAPSHOT')
-@Grab('org.thymeleaf:thymeleaf-spring4:2.1.2.RELEASE')
+@Grab('org.springframework.cloud:spring-cloud-spring-service-connector:1.1.1.RELEASE')
+@Grab('org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.1.RELEASE')
+@Grab(group='org.springframework.boot', module='spring-boot-starter-actuator', version='1.1.9.RELEASE')
+@Grab(group='org.springframework.boot', module='spring-boot-starter-thymeleaf', version='1.1.9.RELEASE')
 
 import org.springframework.cloud.Cloud
 import org.springframework.cloud.CloudFactory
@@ -10,7 +10,6 @@ import groovy.util.logging.Commons
 
 beans {
 	cloudFactory(CloudFactory)
-
 	cloud(cloudFactory: "getCloud")
 }
 
