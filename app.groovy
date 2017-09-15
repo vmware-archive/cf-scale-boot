@@ -6,6 +6,7 @@
 import org.springframework.cloud.Cloud
 import org.springframework.cloud.CloudFactory
 import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 import groovy.util.logging.Commons
 
 beans {
@@ -19,6 +20,9 @@ beans {
 class WebApplication implements CommandLineRunner {
 
 	int requestsServed
+
+	@Value('${cfscaleboot.flushout:false}')
+	boolean flushOut = false
 
 	@Autowired
 	Cloud cloud
@@ -37,14 +41,20 @@ class WebApplication implements CommandLineRunner {
 	}
 
 	@RequestMapping("/killSwitch")
-    void die() {
-        log.fatal("KILL SWITCH ACTIVATED!")
-        System.exit(1)
-    }
+	void die(HttpServletResponse response) {
+		if(flushOut) {
+			log.fatal("FLUSHING BEFORE KILL!")
+			response.setStatus(HttpServletResponse.SC_OK)
+			response.getWriter().println("<html><body><h1>KILL SWITCH ENGAGED</h1></body></html>")
+			response.getWriter().flush()
+		}
+		log.fatal("KILL SWITCH ACTIVATED!")
+		System.exit(1)
+	}
 
 	@Override
-    void run(String... args) {
-        println "Started..."
-    }
+	void run(String... args) {
+		println "Started..."
+	}
 
 }
