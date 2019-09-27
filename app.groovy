@@ -1,17 +1,14 @@
-@Grab('org.springframework.cloud:spring-cloud-spring-service-connector:1.1.1.RELEASE')
-@Grab('org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.1.RELEASE')
-@Grab(group='org.springframework.boot', module='spring-boot-starter-actuator', version='1.1.9.RELEASE')
-@Grab(group='org.springframework.boot', module='spring-boot-starter-thymeleaf', version='1.1.9.RELEASE')
+@Grab('io.pivotal.cfenv:java-cfenv-boot:1.0.1.RELEASE')
+@Grab(group='org.springframework.boot', module='spring-boot-starter-actuator', version='2.1.8.RELEASE')
+@Grab(group='org.springframework.boot', module='spring-boot-starter-thymeleaf', version='2.1.8.RELEASE')
 
-import org.springframework.cloud.Cloud
-import org.springframework.cloud.CloudFactory
+import io.pivotal.cfenv.core.CfEnv
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import groovy.util.logging.Commons
 
 beans {
-	cloudFactory(CloudFactory)
-	cloud(cloudFactory: "getCloud")
+	cfEnv(CfEnv)
 }
 
 @Controller
@@ -25,17 +22,17 @@ class WebApplication implements CommandLineRunner {
 	boolean flushOut = false
 
 	@Autowired
-	Cloud cloud
+	CfEnv cfEnv;
 
 	@RequestMapping("/")
 	String home(Map<String,Object> model, HttpServletRequest request) {
 		requestsServed++
-		model['instance'] = cloud.applicationInstanceInfo.properties['instance_index']
-		model['port'] = cloud.applicationInstanceInfo.properties['port']
+		model['instance'] = cfEnv.app.instanceIndex
+		model['port'] = cfEnv.app.port
 		model['ipAddress'] = request.localAddr
-		model['applicationName'] = cloud.applicationInstanceInfo.properties['application_name']
-		model['memory'] = cloud.applicationInstanceInfo.properties['limits']['mem']
-		model['disk'] = cloud.applicationInstanceInfo.properties['limits']['disk']
+		model['applicationName'] = cfEnv.app.applicationName
+		model['memory'] = cfEnv.app.map.limits.mem
+		model['disk'] = cfEnv.app.map.limits.disk
 		model['requestsServed'] = requestsServed
 		return "index"
 	}

@@ -1,6 +1,8 @@
 ---
 applications:
 - name: cf-scale-boot
-  memory: 768M
+  memory: 1G
   instances: 1
   random-route: true
+  env:
+    JBP_CONFIG_OPEN_JDK_JRE: '{ memory_calculator: { class_count: 12000 } }'
